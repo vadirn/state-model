@@ -1,0 +1,49 @@
+{
+  "name": "components-server",
+  "main": "main.js",
+  "author": "Vadim Kotov <igeeko@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "node src/server.js",
+    "watch":
+      "export BABEL_ENV=development && npm run clean && npm run prerender && webpack --config webpack.config.js --watch --colors --progress",
+    "clean": "rm -rf build/** && mkdir -p build/assets",
+    "prerender": "node scripts/prerender.js"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-dynamic-import-node": "^1.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "bluebird": "^3.5.1",
+    "components-di": "^0.3.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "history": "^4.7.2",
+    "hoist-non-react-statics": "^2.3.1",
+    "object-state-storage": "^3.3.0",
+    "postcss-color-function": "^4.0.0",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-custom-properties": "^6.1.0",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-smart-import": "^0.7.5",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "session-controller": "^2.0.0",
+    "superagent": "^3.8.0",
+    "webpack": "^3.8.1"
+  },
+  "importSort": {
+    ".js, .jsx, .es6, .es": {
+      "parser": "babylon",
+      "style": "module"
+    }
+  }
+}
