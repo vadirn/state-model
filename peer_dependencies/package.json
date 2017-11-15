@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {},
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "object-state-storage": "^3.3.0"
   }
 }

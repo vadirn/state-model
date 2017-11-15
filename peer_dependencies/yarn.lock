@@ -5,3 +5,7 @@
 lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+object-state-storage@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/object-state-storage/-/object-state-storage-3.3.0.tgz#46721f25b75ad90ac76838513f5fc2e242878de2"

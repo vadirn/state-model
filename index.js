@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-// returns type of provided value: string, array, number, object, null
+// returns type of provided value: string, array, number, object, null, boolean
 export const getType = value => {
   let type = typeof value;
   if (type === 'object') {
@@ -69,6 +69,8 @@ export default class StateModel {
           }
           modifierKeys.delete(modKey);
         });
+        // remove all state keys, as they match *
+        stateKeys.clear();
       } else if (!modifierKeys.has(defKey) && !stateKeys.has(defKey)) {
         if (attrParams.__type !== 'object' && attrParams.__value !== undefined) {
           // both modifier and state don't have values, use __value if __type is not object
@@ -127,6 +129,7 @@ export default class StateModel {
         )}"`
       );
     }
+
     return patch;
   }
 }
