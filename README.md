@@ -89,7 +89,7 @@ store.setState(state => {
     return sm.set(state, { id_1: { timestamp: '1510737513759' } });
   } catch (err) {
     return {
-      error: 'Error: Type mismatch at "id_1.timestamp" ("number" expected, but "string" received)',
+      error: err.toString(),
     };
   }
 });
