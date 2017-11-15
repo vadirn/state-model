@@ -9,6 +9,9 @@
   "scripts": {
     "test": "jest --config jest.config.js --verbose"
   },
+  "peerDependencies": {
+    "lodash": "*"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",

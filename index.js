@@ -1,12 +1,6 @@
 import get from 'lodash/get';
-// import { isObject } from 'object-state-storage';
-// import error from './errors';
 
-// string
-// array
-// number
-// object
-// null
+// returns type of provided value: string, array, number, object, null
 export const getType = value => {
   let type = typeof value;
   if (type === 'object') {
@@ -24,6 +18,7 @@ export default class StateModel {
   constructor(definition) {
     this.definition = definition;
   }
+  // returns a patch to be applied to state
   set(state, modifier, statePath = [], modifierPath = [], definitionPath = ['__value']) {
     const patch = {};
 
@@ -38,13 +33,9 @@ export default class StateModel {
           ? new Set(Object.keys(get(modifier, modifierPath, {}) || {}))
           : new Set(Object.keys(modifier));
     }
-    // console.log('stateKeys', stateKeys);
-    // console.log('modifierKeys', modifierKeys);
-    // console.log('definitionKeys', definitionKeys);
 
     // run through definition keys, and remove relevant keys for modifier and state
     // if modifier contains *, almost everything may pass
-
     definitionKeys.forEach(defKey => {
       const attrParams = get(this.definition, [...definitionPath, defKey]);
 
@@ -122,9 +113,6 @@ export default class StateModel {
       modifierKeys.delete(defKey);
       stateKeys.delete(defKey);
     });
-
-    // console.log('modifierKeys after loop', modifierKeys);
-    // console.log('stateKeys after loop', stateKeys);
 
     if (stateKeys.size > 0) {
       throw new Error(
