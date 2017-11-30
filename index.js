@@ -66,8 +66,8 @@ export default class StateModel {
                 }" received)`
               );
             }
+            modifierKeys.delete(modKey);
           }
-          modifierKeys.delete(modKey);
         });
         // remove all state keys, as they match *
         stateKeys.clear();

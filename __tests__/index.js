@@ -309,6 +309,27 @@ describe('StateModel', () => {
       const patch = sm.set({}, { 'attr-1': 'attr-1' });
       expect(patch).toEqual({ 'attr-1': 'attr-1' });
     });
+    it('handles deep value assignment (arrays)', () => {
+      const sm = new StateModel({
+        __type: 'object',
+        __value: {
+          'attr-1': {
+            __type: 'object',
+            __value: {
+              '*': {
+                __type: '*',
+              },
+              'attr-2': {
+                __type: 'array',
+                __value: [],
+              },
+            },
+          },
+        },
+      });
+      const patch = sm.set({}, { 'attr-1': { 'attr-2': [1, 2], 'attr-3': 'attr-3-value' } });
+      expect(patch).toEqual({ 'attr-1': { 'attr-2': [1, 2], 'attr-3': 'attr-3-value' } });
+    });
     it('handles "*"-key in definition (1)', () => {
       const sm = new StateModel({
         __type: 'object',
