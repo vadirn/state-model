@@ -23,9 +23,19 @@ export default class StateModel {
     const patch = {};
 
     let modifierKeys = [];
-    const stateKeys =
-      statePath.length > 0 ? new Set(Object.keys(get(state, statePath, {}))) : new Set(Object.keys(state));
+    let stateKeys = new Set();
     const definitionKeys = new Set(Object.keys(get(this.definition, definitionPath, {})));
+
+    // const stateKeys =
+    //   statePath.length > 0 ? new Set(Object.keys(get(state, statePath, {}))) : new Set(Object.keys(state || {}));
+    if (statePath.length > 0) {
+      const valueAtPath = get(state, statePath, {});
+      if (valueAtPath) {
+        stateKeys = new Set(Object.keys(valueAtPath));
+      }
+    } else if (state) {
+      stateKeys = new Set(Object.keys(state));
+    }
 
     if (modifier) {
       modifierKeys =

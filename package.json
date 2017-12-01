@@ -1,6 +1,6 @@
 {
   "name": "state-model",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Helps validate state transitions",
   "main": "index.js",
   "repository": "git@github.com:vadirn/state-model.git",

@@ -423,3 +423,28 @@ describe('Readme example', () => {
     });
   });
 });
+
+describe('Other usecases', () => {
+  it('test-1', () => {
+    const model = new StateModel({
+      __type: 'object',
+      __value: {
+        user: {
+          __type: 'object',
+          __nullable: true,
+          __value: {
+            a: {
+              __type: 'string',
+              __value: 'a-value',
+            },
+            b: {
+              __type: 'string',
+              __value: 'b-value',
+            },
+          },
+        },
+      },
+    });
+    expect(model.set({ user: null }, { user: { a: 'a', b: 'b' } })).toEqual({ user: { a: 'a', b: 'b' } });
+  });
+});
