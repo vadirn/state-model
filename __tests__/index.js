@@ -425,7 +425,7 @@ describe('Readme example', () => {
 });
 
 describe('Other usecases', () => {
-  it('test-1', () => {
+  it('fix-1', () => {
     const model = new StateModel({
       __type: 'object',
       __value: {
@@ -446,5 +446,20 @@ describe('Other usecases', () => {
       },
     });
     expect(model.set({ user: null }, { user: { a: 'a', b: 'b' } })).toEqual({ user: { a: 'a', b: 'b' } });
+  });
+  it('fix-2', () => {
+    const model = new StateModel({
+      __type: 'object',
+      __value: {
+        '*': {
+          __type: 'string',
+        },
+        a: {
+          __type: 'string',
+          __value: 'b',
+        },
+      },
+    });
+    expect(model.set({ a: 'a' }, { c: 'c' })).toEqual({ c: 'c' });
   });
 });

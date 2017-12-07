@@ -22,7 +22,7 @@ export default class StateModel {
   set(state, modifier, statePath = [], modifierPath = [], definitionPath = ['__value']) {
     const patch = {};
 
-    let modifierKeys = [];
+    let modifierKeys = new Set();
     let stateKeys = new Set();
     const definitionKeys = new Set(Object.keys(get(this.definition, definitionPath, {})));
 
@@ -46,12 +46,10 @@ export default class StateModel {
 
     // run through definition keys, and remove relevant keys for modifier and state
     // if modifier contains *, almost everything may pass
-    definitionKeys.forEach(defKey => {
+    for (const defKey of definitionKeys) {
       const attrParams = get(this.definition, [...definitionPath, defKey]);
-
       if (defKey === '*') {
-        modifierKeys.forEach(modKey => {
-          // modKey is going to be handled in a different loop
+        for (const modKey of modifierKeys) {
           if (!definitionKeys.has(modKey)) {
             const modifierValue = get(modifier, [...modifierPath, modKey]);
             const modifierType = getType(modifierValue);
@@ -77,10 +75,23 @@ export default class StateModel {
               );
             }
             modifierKeys.delete(modKey);
+            // stateKeys.delete(modKey);
           }
-        });
-        // remove all state keys, as they match *
-        stateKeys.clear();
+        }
+        // remove all state keys, that match *
+        // iterate over definition keys, number of them is less than state keys
+        // for (const stateKey of stateKeys) {
+        //   if (!definitionKeys.has(stateKey)) {
+        //     stateKeys.delete(stateKey);
+        //   }
+        // }
+        const nextStateKeys = new Set();
+        for (const defKey of definitionKeys) {
+          if (stateKeys.has(defKey)) {
+            nextStateKeys.add(defKey);
+          }
+        }
+        stateKeys = nextStateKeys;
       } else if (!modifierKeys.has(defKey) && !stateKeys.has(defKey)) {
         if (attrParams.__type !== 'object' && attrParams.__value !== undefined) {
           // both modifier and state don't have values, use __value if __type is not object
@@ -124,7 +135,7 @@ export default class StateModel {
       // remove key from modifier
       modifierKeys.delete(defKey);
       stateKeys.delete(defKey);
-    });
+    }
 
     if (stateKeys.size > 0) {
       throw new Error(
